@@ -1,0 +1,188 @@
+Ref#,Difficulty,Challenge Name,Solution
+#01,Easy,African Cities,"SELECT CITY.NAME
+FROM CITY
+JOIN COUNTRY
+ON CITY.COUNTRYCODE = COUNTRY.CODE
+WHERE CONTINENT = 'Africa';"
+#02,Easy,Average Population,"SELECT FLOOR(AVG(POPULATION))
+FROM CITY;"
+#03,Easy,Average Population of Each Continent,"SELECT DISTINCT COUNTRY.CONTINENT, FLOOR(AVG(CITY.POPULATION))
+FROM COUNTRY
+JOIN CITY
+ON COUNTRY.CODE = CITY.COUNTRYCODE
+GROUP BY CONTINENT;"
+#04,Medium,Contest Leaderboard,"SELECT H.hacker_id, H.name, SUM(M.max_score) AS total_score
+FROM (
+    SELECT S.hacker_id, S.challenge_id, max(S.score) as max_score
+    FROM Submissions S GROUP BY S.hacker_id, S.challenge_id
+    ) M
+JOIN Hackers H ON H.hacker_id = M.hacker_id
+GROUP BY H.hacker_id, H.name
+HAVING total_score > 0
+ORDER BY total_score DESC, H.hacker_id ASC;"
+#05,Easy,Draw The Triangle 1,"SET @no_of_lines = 20 + 1;
+
+SELECT REPEAT('* ', @no_of_lines := @no_of_lines -1) 
+FROM INFORMATION_SCHEMA.TABLES;"
+#06,Easy,Draw The Triangle 2,"SET @no_of_lines = 0;
+
+SELECT REPEAT('* ', @no_of_lines := @no_of_lines +1) 
+FROM INFORMATION_SCHEMA.TABLES
+LIMIT 20;"
+#07,Easy,Employee Names,"SELECT name
+FROM Employee
+ORDER BY name;"
+#08,Easy,Employee Salaries,"SELECT name
+FROM Employee
+WHERE salary > 2000
+AND months < 10
+ORDER BY employee_id;"
+#09,Easy,Higher Than 75 Marks,"SELECT NAME
+FROM STUDENTS
+WHERE Marks > 75
+ORDER BY RIGHT(NAME,3), ID;"
+#10,Easy,Japan Population,"SELECT SUM(POPULATION)
+FROM CITY
+WHERE COUNTRYCODE = 'JPN';"
+#11,Easy,Japanese Cities' Attributes,"SELECT *
+FROM CITY
+WHERE COUNTRYCODE = ""JPN"";"
+#12,Medium,Placements,"SELECT s.Name
+FROM Students s
+JOIN Packages p1 ON s.ID = p1.ID
+JOIN Friends f ON s.ID = f.ID
+JOIN Packages p2 ON f.Friend_ID = p2.ID
+WHERE p2.Salary > p1.Salary
+ORDER BY p2.Salary;"
+#13,Easy,Population Census ,"SELECT SUM(CITY.POPULATION)
+FROM CITY
+JOIN COUNTRY
+ON CITY.COUNTRYCODE = COUNTRY.CODE
+WHERE CONTINENT = 'Asia';"
+#14,Easy,Population Density Difference,"SELECT MAX(POPULATION) - MIN(POPULATION)
+FROM CITY;"
+#15,Easy,Revising Aggregations - The Count Function,"SELECT Count(*)
+FROM CITY
+WHERE POPULATION > 100000;"
+#16,Easy,Revising Aggregations - The Sum Function,"SELECT SUM(POPULATION)
+FROM CITY
+WHERE DISTRICT = 'California';"
+#17,Easy,Revising Aggregations – Averages,"SELECT AVG(POPULATION)
+FROM CITY
+WHERE DISTRICT = 'California';"
+#18,Easy,Revising the Select Query I,"SELECT *
+FROM CITY
+WHERE COUNTRYCODE = 'USA' AND POPULATION > 100000;"
+#19,Easy,Revising the Select Query II,"SELECT NAME
+FROM CITY
+WHERE COUNTRYCODE = 'USA' AND POPULATION > 120000;"
+#20,Easy,Select All,"SELECT *
+FROM CITY;"
+#21,Easy,Select By ID,"SELECT *
+FROM CITY
+WHERE ID = 1661;"
+#22,Easy,The Blunder,"SELECT CEIL(AVG(Salary)-AVG(REPLACE(SALARY, 0, '')))
+FROM EMPLOYEES;"
+#23,Medium,The PADS,"SELECT CONCAT(NAME,'(',LEFT(OCCUPATION,1),')')
+FROM OCCUPATIONS
+ORDER BY NAME;
+
+SELECT CONCAT('There are a total of ', COUNT(OCCUPATION), ' ', lower(OCCUPATION), 's.')
+FROM OCCUPATIONS
+GROUP BY OCCUPATION
+ORDER BY COUNT(OCCUPATION), OCCUPATION;"
+#24,Medium,The Report,"SELECT IF(Grades.Grade < 8, NULL, Students.Name), Grades.Grade, Students.MARKS
+FROM Students
+JOIN Grades
+ON Students.Marks BETWEEN Grades.MIN_MARK AND Grades.MAX_MARK
+ORDER BY Grades.Grade DESC, Students.Name, Students.Marks;"
+#25,Easy,Top Earners,"SELECT MAX(salary*months), COUNT(*)
+FROM EMPLOYEE
+WHERE salary*months = (
+    SELECT MAX(salary*months)
+    FROM EMPLOYEE
+    );"
+#26,Easy,Type of Triangle,"SELECT 
+    CASE
+        WHEN A+B<=C OR A+C<=B OR B+C<=A THEN 'Not A Triangle'
+        WHEN A=B AND A=C AND B=C THEN 'Equilateral'
+        WHEN A=B OR A=C THEN 'Isosceles'
+        ELSE 'Scalene'
+    END
+FROM TRIANGLES;"
+#27,Easy,Weather Observation Station 1,"SELECT DISTINCT CITY, STATE
+FROM STATION
+ORDER BY CITY;"
+#28,Easy,Weather Observation Station 10,"SELECT DISTINCT CITY
+FROM STATION
+WHERE RIGHT(CITY,1) NOT IN ('a', 'e', 'i', 'o', 'u');"
+#29,Easy,Weather Observation Station 11,"SELECT DISTINCT CITY
+FROM STATION
+WHERE LEFT(CITY,1) NOT IN ('a', 'e', 'i', 'o', 'u')
+OR RIGHT(CITY,1) NOT IN ('a', 'e', 'i', 'o', 'u');"
+#30,Easy,Weather Observation Station 12,"SELECT DISTINCT CITY
+FROM STATION
+WHERE LEFT(CITY,1) NOT IN ('a', 'e', 'i', 'o', 'u')
+AND RIGHT(CITY,1) NOT IN ('a', 'e', 'i', 'o', 'u');"
+#31,Easy,Weather Observation Station 13,"SELECT ROUND(SUM(LAT_N),4)
+FROM STATION
+WHERE LAT_N BETWEEN 38.788 AND 137.2345;"
+#32,Easy,Weather Observation Station 14,"SELECT ROUND(MAX(LAT_N),4)
+FROM STATION
+WHERE LAT_N < 137.2345;"
+#33,Easy,Weather Observation Station 15,"SELECT ROUND(MAX(LONG_W),4)
+FROM STATION
+WHERE LAT_N  = (
+    SELECT MAX(LAT_N)
+    FROM STATION
+    WHERE LAT_N < 137.2345
+    );"
+#34,Easy,Weather Observation Station 16,"SELECT ROUND(MIN(LAT_N),4)
+FROM STATION
+WHERE LAT_N  > 38.778;"
+#35,Easy,Weather Observation Station 17,"SELECT ROUND(LONG_W,4)
+FROM STATION
+WHERE LAT_N = (
+    SELECT MIN(LAT_N)
+    FROM STATION
+    WHERE LAT_N > 38.778);"
+#36,Medium,Weather Observation Station 18,"SELECT ROUND((ABS(MIN(LAT_N)- MAX(LAT_N))+ ABS(MIN(LONG_W)- MAX(LONG_W))), 4)
+FROM STATION;"
+#37,Medium,Weather Observation Station 19,"SELECT ROUND(SQRT(POWER(MAX(LAT_N) - MIN(LAT_N),2) + POWER(MAX(LONG_W) - MIN(LONG_W),2)),4)
+FROM STATION;"
+#38,Easy,Weather Observation Station 2,"SELECT ROUND(SUM(LAT_N),2), ROUND(SUM(LONG_W),2)
+FROM STATION"
+#39,Medium,Weather Observation Station 20,"SELECT t.lat
+FROM(
+    SELECT ROUND(LAT_N, 4) as lat, 
+    ROW_NUMBER() OVER(ORDER BY LAT_N) AS ROW_NUM
+    FROM STATION
+    ORDER BY ROW_NUM
+  ) t
+WHERE t.ROW_NUM = CEIL((SELECT COUNT(*) + 1 FROM STATION) / 2);"
+#40,Easy,Weather Observation Station 3,"SELECT DISTINCT CITY
+FROM STATION
+WHERE ID%2=0;"
+#41,Easy,Weather Observation Station 4,"SELECT COUNT(CITY) - COUNT(DISTINCT CITY)
+FROM STATION;"
+#42,Easy,Weather Observation Station 5,"SELECT CITY, LENGTH(CITY)
+FROM STATION
+ORDER BY LENGTH(CITY), CITY
+LIMIT 1;
+SELECT CITY, LENGTH(CITY)
+FROM STATION
+ORDER BY LENGTH(CITY) DESC, CITY
+LIMIT 1;"
+#43,Easy,Weather Observation Station 6,"SELECT DISTINCT CITY
+FROM STATION
+WHERE LEFT(CITY,1) IN ('a', 'e', 'i', 'o', 'u');"
+#44,Easy,Weather Observation Station 7,"SELECT DISTINCT CITY
+FROM STATION
+WHERE RIGHT(CITY,1) IN ('a', 'e', 'i', 'o', 'u');"
+#45,Easy,Weather Observation Station 8,"SELECT DISTINCT CITY
+FROM STATION
+WHERE LEFT(CITY,1) IN ('a', 'e', 'i', 'o', 'u')
+AND RIGHT(CITY,1) IN ('a', 'e', 'i', 'o', 'u');"
+#46,Easy,Weather Observation Station 9,"SELECT DISTINCT CITY
+FROM STATION
+WHERE LEFT(CITY,1) NOT IN ('a', 'e', 'i', 'o', 'u');"
